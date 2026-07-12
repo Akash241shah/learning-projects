@@ -1,0 +1,678 @@
+/* ==========================================
+   Personal Finance Tracker - Styles
+   ========================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #6c5ce7;
+  --primary-dark: #5344d6;
+  --primary-light: #a29bfe;
+  --income: #00b894;
+  --expense: #e74c3c;
+  --bg: #f0f2f9;
+  --card-bg: #ffffff;
+  --text-dark: #2d3436;
+  --text-muted: #7c828a;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(108, 92, 231, 0.10);
+  --shadow-hover: 0 14px 32px rgba(108, 92, 231, 0.18);
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background:
+    radial-gradient(circle at top left, #ece9fd 0%, transparent 45%),
+    radial-gradient(circle at bottom right, #e4f9f2 0%, transparent 45%),
+    var(--bg);
+  color: var(--text-dark);
+  line-height: 1.6;
+  padding: 24px 16px 60px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 950px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 32px 20px;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--primary) 0%, #a55eea 100%);
+  color: #fff;
+  box-shadow: var(--shadow);
+}
+
+header h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+header p {
+  opacity: 0.9;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+/* Summary cards */
+.summary {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 200px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 22px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--primary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card h3 {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.income-card {
+  border-top-color: var(--income);
+}
+.income-card p {
+  color: var(--income);
+}
+
+.expense-card {
+  border-top-color: var(--expense);
+}
+.expense-card p {
+  color: var(--expense);
+}
+
+/* Sections */
+section {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s ease;
+}
+
+section:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+section h2::before {
+  content: "";
+  width: 6px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--primary);
+  display: inline-block;
+}
+
+/* Form */
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Income / Expense radio toggle, styled like pill buttons */
+.form-row:first-of-type {
+  gap: 10px;
+}
+
+.form-row:first-of-type label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  border-radius: 30px;
+  border: 2px solid #e6e6f0;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: all 0.15s ease;
+}
+
+.form-row:first-of-type label:has(input:checked) {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  padding: 11px 13px;
+  border: 2px solid #e6e6f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fafaff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
+}
+
+button {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 6px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.25);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(108, 92, 231, 0.35);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+#cancelEditBtn {
+  background: #b2bec3;
+  box-shadow: none;
+}
+#cancelEditBtn:hover {
+  background: #95a1a6;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+#clearAllBtn {
+  background: linear-gradient(135deg, var(--expense) 0%, #c0392b 100%);
+  box-shadow: 0 4px 12px rgba(231, 76, 60, 0.25);
+}
+#clearAllBtn:hover {
+  box-shadow: 0 8px 18px rgba(231, 76, 60, 0.35);
+}
+
+#exportBtn {
+  background: linear-gradient(135deg, var(--income) 0%, #00997a 100%);
+  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.25);
+}
+#exportBtn:hover {
+  box-shadow: 0 8px 18px rgba(0, 184, 148, 0.35);
+}
+
+/* Bar chart (plain divs, no library) */
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 90px;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bar-track {
+  background: #f0f0f7;
+  border-radius: 20px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 20px;
+  width: 0%;
+  transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Transaction table */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 13px 10px;
+  border-bottom: 1px solid #f0f0f5;
+  font-size: 14px;
+}
+
+th {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+tbody tr {
+  transition: background 0.15s ease;
+}
+
+tbody tr:hover {
+  background: #faf9ff;
+}
+
+.amount-income {
+  color: var(--income);
+  font-weight: 700;
+}
+
+.amount-expense {
+  color: var(--expense);
+  font-weight: 700;
+}
+
+.action-btn {
+  background: #f0f0f7;
+  color: var(--primary);
+  padding: 6px 12px;
+  margin-right: 6px;
+  margin-top: 0;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.action-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: none;
+  box-shadow: none;
+}
+
+.action-btn.delete {
+  color: var(--expense);
+}
+
+.action-btn.delete:hover {
+  background: var(--expense);
+  color: #fff;
+}
+
+.empty-msg {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px 0;
+  display: none;
+  font-size: 14px;
+}
+
+/* Monthly Breakdown Section */
+.monthly-breakdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.monthly-breakdown-header h2 {
+  margin-bottom: 0;
+}
+
+.monthly-breakdown-header input[type="month"] {
+  padding: 8px 12px;
+  border: 2px solid #d0c9f7;
+  border-radius: 6px;
+  font-size: 13px;
+  background: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text-dark);
+}
+
+.monthly-breakdown-header input[type="month"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
+}
+
+.monthly-breakdown-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.breakdown-card {
+  flex: 1;
+  min-width: 150px;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2f9 100%);
+  border-radius: 10px;
+  padding: 18px;
+  text-align: center;
+  border: 2px solid #e0daf5;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.breakdown-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+.breakdown-card h3 {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.breakdown-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.income-breakdown {
+  border-left: 4px solid var(--income);
+}
+
+.income-breakdown .breakdown-value {
+  color: var(--income);
+}
+
+.expense-breakdown {
+  border-left: 4px solid var(--expense);
+}
+
+.expense-breakdown .breakdown-value {
+  color: var(--expense);
+}
+
+.balance-breakdown {
+  border-left: 4px solid var(--primary);
+}
+
+.balance-breakdown .breakdown-value {
+  color: var(--primary);
+}
+
+/* This Month Flow Cards */
+.flow-cards-section {
+  margin-bottom: 22px;
+}
+
+.flow-cards {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.flow-card {
+  flex: 1;
+  min-width: 200px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 22px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--primary);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.flow-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.flow-card h3 {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.flow-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.in-card {
+  border-top-color: var(--income);
+}
+
+.in-card .flow-value {
+  color: var(--income);
+}
+
+.out-card {
+  border-top-color: var(--expense);
+}
+
+.out-card .flow-value {
+  color: var(--expense);
+}
+
+.balance-card {
+  border-top-color: var(--primary);
+}
+
+.balance-card .flow-value {
+  color: var(--primary);
+}
+
+footer {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Filter & Budget Section */
+.filter-section {
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2f9 100%);
+  border: 2px dashed #d0c9f7;
+}
+
+.filter-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-row:last-child {
+  margin-bottom: 0;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 250px;
+}
+
+.filter-group label {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.filter-group input[type="month"],
+.filter-group input[type="number"] {
+  padding: 11px 13px;
+  border: 2px solid #d0c9f7;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.filter-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.15);
+}
+
+.secondary-btn {
+  background: linear-gradient(135deg, #a29bfe 0%, #dfe6e9 100%);
+  color: var(--text-dark);
+  border: none;
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-top: 27px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+}
+
+.secondary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.secondary-btn:active {
+  transform: translateY(0);
+}
+
+/* Budget Status */
+.budget-status {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--card-bg);
+  border-radius: 8px;
+}
+
+.budget-status p {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .summary {
+    flex-direction: column;
+  }
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  thead {
+    display: none;
+  }
+  td {
+    border: none;
+    padding: 4px 0;
+  }
+  tr {
+    border-bottom: 1px solid #f0f0f5;
+    padding: 10px 0;
+  }
+  .bar-row {
+    grid-template-columns: 90px 1fr 70px;
+    font-size: 12px;
+  }
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-group {
+    min-width: 100%;
+  }
+  .secondary-btn {
+    width: 100%;
+    margin-top: 0;
+  }
+}

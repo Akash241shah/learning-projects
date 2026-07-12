@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Finance Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="project1.css">
+  <!-- jsPDF: lets us generate a real, downloadable PDF file from JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <h1>💰 $ FINTRACK</h1>
+      <p>Keep track of your income and expenses</p>
+    </header>
+
+    <!-- Summary cards -->
+    <section class="summary">
+      <div class="card">
+        <h3>Balance</h3>
+        <p id="balance">₹0</p>
+      </div>
+      <div class="card income-card">
+        <h3>Total Income</h3>
+        <p id="totalIncome">₹0</p>
+      </div>
+      <div class="card expense-card">
+        <h3>Total Expense</h3>
+        <p id="totalExpense">₹0</p>
+      </div>
+    </section>
+
+    <!-- Add transaction form -->
+    <section class="form-section">
+      <h2>Add New Transaction</h2>
+      <form id="transactionForm">
+
+        <div class="form-row">
+          <label>
+            <input type="radio" name="type" value="income" checked> Income
+          </label>
+          <label>
+            <input type="radio" name="type" value="expense"> Expense
+          </label>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="amount">Amount (₹)</label>
+            <input type="number" id="amount" min="1" step="0.01" required placeholder="e.g. 500">
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" required></select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" id="date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" id="description" placeholder="e.g. Groceries" maxlength="60">
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn">Add Transaction</button>
+        <button type="button" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
+      </form>
+    </section>
+
+    <!-- This Month In/Out Flow Cards -->
+    <section class="flow-cards-section">
+      <h2>This Month Flow</h2>
+      <div class="flow-cards">
+        <div class="flow-card in-card">
+          <h3>Money In</h3>
+          <p id="monthIncome" class="flow-value">₹0</p>
+        </div>
+        <div class="flow-card out-card">
+          <h3>Money Out</h3>
+          <p id="monthExpense" class="flow-value">₹0</p>
+        </div>
+        <div class="flow-card balance-card">
+          <h3>Net Flow</h3>
+          <p id="monthBalance" class="flow-value">₹0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chart: spending by category -->
+    <section class="chart-section">
+      <h2>Spending by Category (This Month)</h2>
+      <div id="categoryChart" class="bar-chart">
+        <p class="empty-msg" id="chartEmptyMsg">No expenses yet.</p>
+      </div>
+    </section>
+
+    <!-- Monthly Breakdown Section -->
+    <section class="chart-section">
+      <div class="monthly-breakdown-header">
+        <h2>Monthly Income & Expense Breakdown</h2>
+        <input type="month" id="monthBreakdownFilter">
+      </div>
+      <div class="monthly-breakdown-cards">
+        <div class="breakdown-card income-breakdown">
+          <h3>Income</h3>
+          <p id="breakdownIncome" class="breakdown-value">₹0</p>
+        </div>
+        <div class="breakdown-card expense-breakdown">
+          <h3>Expenses</h3>
+          <p id="breakdownExpense" class="breakdown-value">₹0</p>
+        </div>
+        <div class="breakdown-card balance-breakdown">
+          <h3>Balance</h3>
+          <p id="breakdownBalance" class="breakdown-value">₹0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Month Filter & Weekly Budget -->
+    <section class="filter-section">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label for="monthFilter">Filter by Month:</label>
+          <input type="month" id="monthFilter">
+        </div>
+        <button id="resetMonthBtn" class="secondary-btn">Reset Filter</button>
+      </div>
+      <div class="filter-row">
+        <div class="filter-group">
+          <label for="weeklyBudget">Set Weekly Expense Budget (₹):</label>
+          <input type="number" id="weeklyBudget" min="0" step="100" placeholder="e.g. 5000">
+        </div>
+        <button id="setWeeklyBudgetBtn" class="secondary-btn">Save Budget</button>
+      </div>
+      <div id="budgetStatus" class="budget-status"></div>
+    </section>
+
+    <!-- Transaction list -->
+    <section class="list-section">
+      <div class="list-header">
+        <h2 id="transactionTitle">All Transactions</h2>
+        <div class="filters">
+          <select id="filterType">
+            <option value="all">All</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+          <input type="text" id="searchBox" placeholder="Search description...">
+        </div>
+      </div>
+
+      <table id="transactionTable">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="transactionBody">
+          <!-- rows added by JS -->
+        </tbody>
+      </table>
+      <p class="empty-msg" id="tableEmptyMsg">No transactions found.</p>
+    </section>
+
+    <footer>
+      <button id="exportBtn">⬇ Export as PDF</button>
+      <button id="clearAllBtn">Clear All Data</button>
+    </footer>
+
+  </div>
+
+  <script src="project1.js"></script>
+</body>
+</html>
